@@ -12,8 +12,8 @@ from unittest.mock import patch
 
 import pytest
 
-from colourmapper.ColourMapper import ColourMapper, ColourResult
 from colourmapper.cm import emit, emit_error, map_colour, setup_argument_parser
+from colourmapper.ColourMapper import ColourMapper, ColourResult
 
 CM_SCRIPT = Path(__file__).parent.parent / "src" / "colourmapper" / "cm.py"
 

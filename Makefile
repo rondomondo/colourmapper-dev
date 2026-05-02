@@ -47,12 +47,14 @@ venv: ## Create Python virtual environment (if absent)
 install: venv ## Create venv (if absent) and install package + dev dependencies
 	$(PIP) install --quiet --upgrade pip
 	$(PIP) install -e ".[dev]"
+	git config core.hooksPath .githooks
 	@echo "  installed. activate with: source $(VENV)/bin/activate"
 
 .PHONY: install-tools
 install-tools: venv ## Create venv (if absent) and install package + dev + mapping-file-create tools
 	$(PIP) install --quiet --upgrade pip
 	$(PIP) install -e ".[dev,tools]"
+	git config core.hooksPath .githooks
 	@echo "  installed. activate with: source $(VENV)/bin/activate"
 
 .PHONY: format
