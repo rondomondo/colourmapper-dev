@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=72"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "colourmapper-dev"
+version = "0.1.0"
+description = "Bidirectional colour name <-> hex lookup backed by ~30K curated colour names"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+authors = [{ name = "David Kierans", email = "dave@abcdef.ai" }]
+keywords = ["colour", "color", "hex", "rgb", "palette", "lookup"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+# No runtime dependencies - the core library is pure stdlib.
+# matplotlib is only required for the mapping-file-create developer tool.
+dependencies = []
+
+[project.optional-dependencies]
+tools = ["matplotlib"]
+dev = [
+    "matplotlib",
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+    "mypy>=1.9",
+    "black>=24.0",
+    "isort>=5.13",
+]
+
+[project.scripts]
+cm = "colourmapper.cm:_entry"
+mapping-file-create = "colourmapper.mapping_file_create:_entry"
+
+[project.urls]
+Repository = "https://github.com/rondomondo/colourmapper-dev"
+Issues = "https://github.com/rondomondo/colourmapper-dev/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"colourmapper" = ["*.json", "*.csv", "py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 119
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+ignore_missing_imports = true
