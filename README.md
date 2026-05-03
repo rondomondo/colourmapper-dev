@@ -1,6 +1,14 @@
 # colourmapper
 
-![Python](https://img.shields.io/badge/python-3.12-blue)
+![PyPI](https://img.shields.io/pypi/v/colourmapper-dev)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/colourmapper-dev)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/colourmapper-dev)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/colourmapper-dev)
+![License](https://img.shields.io/github/license/rondomondo/colourmapper-dev)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
+![GitHub issues](https://img.shields.io/github/issues/rondomondo/colourmapper-dev)
+![GitHub last commit](https://img.shields.io/github/last-commit/rondomondo/colourmapper-dev)
 
 A Python module plus convienence CLI tools for bidirectional colour name ↔ hex lookup, backed by a merged named colour (eg `burnt orange`) map built from multiple curated sources of colour name and their respective hex value. Contains approx 30K unique colours.
 
@@ -19,8 +27,6 @@ As well as the [ColourMapper](src/colourmapper/ColourMapper.py) Module itself th
 |------|---------|
 | [`cm`](src/colourmapper/cm.py) | Look up a colour by a name and/or hex value |
 | [`mapping-file-create`](src/colourmapper/mapping_file_create.py) | Regenerate the bundled named-colour map from included CSV sources plus others|
-
-These can be [aliased](#convenience-shell-aliases) for convienence
 
 ---
 
@@ -49,8 +55,6 @@ result = mapper.get_colour_name("#fe0003")
 
 ## Quick Start
 
-Note: These [aliases](#convenience-shell-aliases) for convienence
-
 ```shell
 git clone https://github.com/rondomondo/colourmapper
 cd colourmapper
@@ -61,39 +65,6 @@ make test
 make examples
 ```
 
----
-
-## Convenience Shell Aliases
-
-Add the following aliases to your shell RC file (`~/.bashrc`, `~/.zshrc`, etc.):
-
-```shell
-
-echo "alias mapping-file-create='$REPOROOT/src/colourmapper/mapping_file_create.py'" >> ~/.bashrc
-
-echo "alias cm='$REPOROOT/src/colourmapper/cm.py'" >> ~/.bashrc
-```
-
-> **Note:**
->
-> `$REPOROOT` must be set in your environment, or replace it with the absolute path to the repository root before running the commands above.
-> <br>
-> <br>
-> Set it with `export REPOROOT="$(git rev-parse --show-toplevel)"`
-
-Or paste the following directly into shell:
-
-```shell
-alias mapping-file-create='$REPOROOT/src/colourmapper/mapping_file_create.py'
-
-alias cm='$REPOROOT/src/colourmapper/cm.py'
-```
-
-Then reload your shell config afterwards:
-
-```shell
-source ~/.bashrc   # or source ~/.zshrc
-```
 
 
 <hr>

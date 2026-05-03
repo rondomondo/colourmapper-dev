@@ -28,7 +28,7 @@ check those memory files before asking the user to re-explain.
 - `ruff` for linting/formatting (`line-length = 119`)
 - `mypy` with `strict = false` and `ignore_missing_imports = true`
 - Line length: 119 characters max
-- Python 3.12+ with full type annotations
+- Python 3.10+ with full type annotations
 - Import order: standard lib, third-party, local
 - Naming: `snake_case` for functions/variables, `PascalCase` for classes
 - Use Pydantic v2 for data validation and schemas
@@ -86,8 +86,7 @@ Rules:
 - All public function signatures must have full type hints
 - Buffer parameters should be typed `Optional[BytesIO]` or `Union[BytesIO, bytes, str, Path]` as
   appropriate -- not `Optional[bytes]`
-- `from __future__ import annotations` is not currently used; explicit imports from `typing` are required
-  for Python <3.10 compat syntax
+- `from __future__ import annotations` is not currently used; use `X | Y` union syntax and `typing` imports directly
 
 ## Running tests
 

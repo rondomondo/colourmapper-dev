@@ -122,19 +122,3 @@ examples: ## Run usage examples (colour lookup + mapping file preview)
 	@echo "  example: mapping-file-create --print | jq '.map | to_entries | .[0:5]'"
 	$(PYTHON) $(MAPPING_FILE_CREATE) --print | jq '.map | to_entries | .[0:5]'
 
-.PHONY: aliases
-aliases: ## Print shell alias commands for cm and mapping-file-create
-	@REPOROOT=$$(git rev-parse --show-toplevel) && \
-	case "$$SHELL" in \
-	  */zsh)  RC="~/.zshrc" ;; \
-	  */bash) RC="~/.bashrc" ;; \
-	  */fish) RC="~/.config/fish/config.fish" ;; \
-	  *)       RC="~/.profile" ;; \
-	esac && \
-	printf "\nAdd the following aliases to your shell RC file ($$RC):\n\n"; \
-	printf "  alias cm='$$REPOROOT/$(CM)'\n"; \
-	printf "  alias mapping-file-create='$$REPOROOT/$(MAPPING_FILE_CREATE)'\n"; \
-	printf "\nOr append them automatically:\n\n"; \
-	printf "  echo \"alias cm='$$REPOROOT/$(CM)'\" >> $$RC\n"; \
-	printf "  echo \"alias mapping-file-create='$$REPOROOT/$(MAPPING_FILE_CREATE)'\" >> $$RC\n\n"
-
