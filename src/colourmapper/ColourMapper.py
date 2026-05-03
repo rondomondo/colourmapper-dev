@@ -132,7 +132,10 @@ class ColourMapper:
         Returns:
             ``(r, g, b)`` integer tuple in the 0-255 range.
         """
-        h = hex_str.lstrip("#")
+        normalised = ColourMapper.hexify(hex_str)
+        if normalised is None:
+            raise ValueError(f"Invalid hex colour: {hex_str!r}")
+        h = normalised.lstrip("#")
         return int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
 
     @staticmethod

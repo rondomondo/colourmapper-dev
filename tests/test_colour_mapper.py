@@ -90,6 +90,22 @@ class TestHexToRgb:
     def test_blue_lowercase(self) -> None:
         assert ColourMapper.hex_to_rgb("0000ff") == (0, 0, 255)
 
+    def test_shorthand_three_digit(self) -> None:
+        assert ColourMapper.hex_to_rgb("#f00") == (255, 0, 0)
+
+    def test_shorthand_without_hash(self) -> None:
+        assert ColourMapper.hex_to_rgb("0f0") == (0, 255, 0)
+
+    def test_invalid_raises(self) -> None:
+        import pytest
+        with pytest.raises(ValueError, match="Invalid hex colour"):
+            ColourMapper.hex_to_rgb("nothex")
+
+    def test_empty_raises(self) -> None:
+        import pytest
+        with pytest.raises(ValueError, match="Invalid hex colour"):
+            ColourMapper.hex_to_rgb("")
+
 
 class TestColourDistance:
     def test_same_colour_is_zero(self) -> None:

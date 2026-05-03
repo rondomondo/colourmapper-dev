@@ -43,18 +43,22 @@ venv: ## Create Python virtual environment (if absent)
 	  echo "  venv already exists in $(VENV)"; \
 	fi
 
+
+.PHONY: install-hooks
+install-hooks: # Install git hook config
+	git config core.hooksPath .githooks 2>/dev/null
+
+
 .PHONY: install
 install: venv ## Create venv (if absent) and install package + dev dependencies
 	$(PIP) install --quiet --upgrade pip
 	$(PIP) install -e ".[dev]"
-	git config core.hooksPath .githooks
 	@echo "  installed. activate with: source $(VENV)/bin/activate"
 
 .PHONY: install-tools
 install-tools: venv ## Create venv (if absent) and install package + dev + mapping-file-create tools
 	$(PIP) install --quiet --upgrade pip
 	$(PIP) install -e ".[dev,tools]"
-	git config core.hooksPath .githooks
 	@echo "  installed. activate with: source $(VENV)/bin/activate"
 
 .PHONY: format
@@ -80,6 +84,9 @@ clean: ## Remove build artifacts and caches
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name .pytest_cache -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name .mypy_cache  -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name .ruff_cache  -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name .venv  -exec rm -rf {} + 2>/dev/null || true
+	find ./demo -mindepth 1 -not -name "*.tape" -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name dist         -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name build        -exec rm -rf {} + 2>/dev/null || true
 	find . -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
@@ -121,4 +128,34 @@ examples: ## Run usage examples (colour lookup + mapping file preview)
 	@echo ""
 	@echo "  example: mapping-file-create --print | jq '.map | to_entries | .[0:5]'"
 	$(PYTHON) $(MAPPING_FILE_CREATE) --print | jq '.map | to_entries | .[0:5]'
+
+
+DEMO_PKGS  := make git jq htop curl cpio build-essential  python3 python3-dev python3.13-venv vim bash
+DEMO_IMAGE := ghcr.io/charmbracelet/vhs
+REPO_NAME  := colourmapper-dev
+TAPE       ?= demo.tape
+
+DEMO_TAPES := $(wildcard demo/*.tape)
+
+.PHONY: demo
+demo: ## Regenerate terminal demo GIF (via Docker, no local vhs needed)
+	mkdir -p demo
+	docker run -it --rm \
+		-v $$(pwd):/tmp/src:ro \
+		-v $$(pwd)/demo:/output \
+		--name "vhs-$(REPO_NAME)" \
+		--entrypoint sh $(DEMO_IMAGE) \
+		-c "apt-get update -qq && apt-get install -y $(DEMO_PKGS) && \
+			DEST=/tmp/$(REPO_NAME) && \
+			mkdir -p \$$DEST && \
+			cd /tmp/src && scripts/list_files.sh | cpio -pdm \$$DEST 2>/dev/null && \
+			cd \$$DEST && \
+			make clean && \
+			make venv && \
+			. \$$DEST/.venv/bin/activate && \
+			make install && \
+			make test && \
+			cd \$$DEST/ && \
+ 			vhs \$$DEST/demo/$(TAPE) && \
+ 			cp -f \$$DEST/demo/demo.gif \$$DEST/demo/demo.mp4 /output/ 2>/dev/null || true"
 

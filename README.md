@@ -505,6 +505,11 @@ flowchart LR
     Nearest -->|"<b>  _ closest  _ </b>"| Return3
 ```
 
+--- 
+
+## Demo
+
+![colourmapper demo](demo/demo.gif)
 
 ---
 
