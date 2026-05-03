@@ -10,14 +10,19 @@ from unittest.mock import patch
 
 import pytest
 
-from colourmapper.mapping_file_create import (build_colour_map,
-                                              create_dicts_from_csv, emit,
-                                              emit_error, format_results,
-                                              get_bare_name_hex_pairs,
-                                              get_named_colours_all,
-                                              get_named_colours_css4,
-                                              merge_dicts, read_csv_file,
-                                              setup_argument_parser)
+from colourmapper.mapping_file_create import (
+    build_colour_map,
+    create_dicts_from_csv,
+    emit,
+    emit_error,
+    format_results,
+    get_bare_name_hex_pairs,
+    get_named_colours_all,
+    get_named_colours_css4,
+    merge_dicts,
+    read_csv_file,
+    setup_argument_parser,
+)
 
 SCRIPT = Path(__file__).parent.parent / "src" / "colourmapper" / "mapping_file_create.py"
 

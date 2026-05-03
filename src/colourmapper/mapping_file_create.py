@@ -173,7 +173,7 @@ def get_named_colours_all() -> dict[str, str]:
     Returns:
         Dict mapping colour name to hex string.
     """
-    colors: dict[str, str] = {**mcolors.CSS4_COLORS, **mcolors.XKCD_COLORS}
+    colors: dict[str, str] = dict(mcolors.CSS4_COLORS) | dict(mcolors.XKCD_COLORS)  # type: ignore[assignment]
     for k in mcolors.BASE_COLORS:
         colors.pop(k, None)
     return dict((name.replace("xkcd:", ""), mcolors.to_hex(color)) for name, color in colors.items())

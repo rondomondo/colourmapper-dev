@@ -12,8 +12,8 @@ VENV     := .venv
 PIP      := $(VENV)/bin/pip
 PYTEST   := $(VENV)/bin/pytest
 RUFF     := $(VENV)/bin/ruff
-MYPY     := $(VENV)/bin/mypy --explicit-package-bases
-BLACK    := $(VENV)/bin/black --line-length 119
+MYPY     := $(VENV)/bin/mypy
+BLACK    := $(VENV)/bin/black --line-length 119 --target-version py312
 ISORT    := $(VENV)/bin/isort
 
 .PHONY: help

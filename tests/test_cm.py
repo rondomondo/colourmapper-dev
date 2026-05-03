@@ -2,18 +2,16 @@
 
 import argparse
 import asyncio
-import dataclasses
 import json
 import subprocess
 import sys
-from io import StringIO
 from pathlib import Path
 from unittest.mock import patch
 
 import pytest
 
 from colourmapper.cm import emit, emit_error, map_colour, setup_argument_parser
-from colourmapper.ColourMapper import ColourMapper, ColourResult
+from colourmapper.ColourMapper import ColourResult
 
 CM_SCRIPT = Path(__file__).parent.parent / "src" / "colourmapper" / "cm.py"
 
