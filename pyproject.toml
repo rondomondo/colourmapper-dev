@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "colourmapper-dev"
-version = "0.0.5"
+version = "0.0.7"
 description = "Bidirectional colour name <-> hex lookup backed by ~30K curated colour names"
 readme = "README.md"
 license = "MIT"

@@ -100,7 +100,7 @@ build: check-venv ## Build wheel and sdist into dist/
 .PHONY: publish-test
 publish-test: build ## Upload to TestPyPI (dry-run / staging)
 	$(PIP) install --quiet twine
-	$(VENV)/bin/twine upload --repository testpypi dist/*
+	$(VENV)/bin/twine upload --verbose --repository testpypi dist/*
 
 .PHONY: publish
 publish: build ## Upload to PyPI (requires credentials)
